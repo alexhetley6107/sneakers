@@ -1,13 +1,31 @@
+$green: #54d9a8;
+
 body {
 	margin: 0;
 	font-family: 'Inter', system-ui;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-  background-color: #e7f6ff;
+  background-color: $green;
+  &::-webkit-scrollbar {
+    background-color: $green;
+    width: 15px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 20px;
+    border: 5px solid $green;
+  }
+  *{
+    font-family: 'Inter', system-ui;
+  }
+  &.lock{
+    overflow: hidden;
+  }
+
 }
 .wrapper {
   background: #FFFFFF;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.04);
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.44);
   border-radius: 20px;
   max-width: 1080px;
   margin: 50px auto;
@@ -28,25 +46,6 @@ header{
     margin: 0;
   }
 }
-.card {
-  border: 1px solid #d2d2d2;
-  padding: 20px;
-  width: 220px;
-  border-radius: 40px;
-  h5 {
-    font-weight: 400;
-    font-size: 14px;
-  }
-  span{
-    opacity: 0.5;
-    font-size: 13px;
-    text-transform: uppercase;
-  }
-  b {
-    font-size: 13px;
-  }
-  
-}
 
 .button {
   box-sizing: border-box;
@@ -56,4 +55,187 @@ header{
   height: 32px;
   width: 32px;
   cursor: pointer;
+}
+.search-block{
+  border: 2px solid #EAEAEA;
+  border-radius: 15px;
+  padding: 0 15px;
+
+  input {
+    border: 0;
+    padding: 13px;
+    font-size: 16px;
+    width: 200px;
+  }
+}
+
+
+.overlay {
+  position: absolute;
+  left: 0;
+  top: 0; 
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  width: 100%;   
+  height: 100%;
+
+  .drawer {
+    display: flex;
+    flex-direction: column; 
+
+    position: absolute;
+    width: 420px;
+    right: 0;
+    height: 100%;
+    background: #FFFFFF;
+    box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
+
+    padding: 30px;
+    h2 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .items{
+      flex: 1;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        background-color: white;
+        width: 10px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #54c199;
+        border-radius: 20px;
+        border: 3px solid white;
+      }
+
+      .cartItem{
+        border: 2px solid #f3f3f3;
+        border-radius: 20px;
+        overflow: hidden;
+        padding: 20px;
+        p{
+          font-size: 16px;
+          margin: 0;
+        }
+        b{
+          font-size: 14px;   
+        }
+        .cartItemImg{
+          height: 80px;
+          min-width: 80px;
+          background-size: contain;
+          background-position: 0 -5px;
+          background-repeat: no-repeat;
+          margin-right: 20px;
+        }
+        .removeBtn{
+          opacity: 0.4;
+          transition: all .2s ease-in-out;
+          cursor: pointer;
+          &:hover{
+            opacity: 1;
+          }
+        }
+      }    
+    }
+
+    .cartTotalBlock {
+      ul {
+        margin: 20px 0;
+
+        li {
+          display: flex;
+          align-items: end;
+          margin-bottom: 20px;
+          
+          div {
+            flex: 1;
+            height: 1px;
+            border-bottom: 1px dashed #DFDFDF;
+            position: relative;
+            top: -3px;
+            margin: 0 7px;
+          }
+        }
+        
+      }
+
+      .greenBtn{
+        position: relative;
+
+        &:disabled{
+          background-color: #bebebe !important;
+          cursor: default !important;
+        }
+        
+        &:hover{
+          img{
+            transform: translateX(10px);
+          }
+        }
+
+        img{
+          position: absolute;
+          right: 30px;
+          top: 20px; 
+          transition: transform 0.15s ease-in-out;
+        }
+
+      }
+    }
+  }
+}
+
+.greenBtn{
+  width: 100%;
+  height: 55px;
+
+  background: $green;
+  border-radius: 18px;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out ;
+
+  &:hover{
+    background: lighten($green, 10%);
+  }
+  &:active{
+    background: darken($green, 15%);
+  }
+}
+
+.sneakers, .favorites {
+  flex-wrap: wrap;
+}
+
+.cartEmpty {
+  text-align: center;
+
+  p {
+    width: 280px;
+    line-height: 24px;
+  }
+
+  .greenBtn {
+    width: 245px;
+    margin-top: 20px;
+
+    &:hover {
+      img {
+        transform: rotate(180deg) translateX(3px);
+      }
+    }
+
+    img {
+      position: relative;
+      top: 1px;
+      transform: rotate(180deg);
+      margin-right: 15px;
+      transition: transform 0.15s ease-in-out;
+    }
+  }
 }

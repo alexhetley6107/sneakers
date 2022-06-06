@@ -1,87 +1,110 @@
-import React from 'react';
+import React, { useState, useEffect, createContext } from 'react';
+import axios from 'axios';
+import { Route, Routes } from 'react-router-dom';
+
+import Drawer from './components/Drawer';
+import Header from './components/Header';
+import Home from './pages/Home';
+import Favorites from './pages/Favorites';
+
+export const AppContext = createContext({});
 
 function App() {
+
+  const [items, setItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
+  const [favorites, setFavorites] = useState([]);  
+  const [cartOpened, setCartOpened] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);  
+
+  useEffect(() => {
+    async function fetchData() {
+      const cartResponse = await axios
+        .get('https://629b626bcf163ceb8d18cc73.mockapi.io/cart');
+      const favoritesResponse = await axios
+        .get('https://629b626bcf163ceb8d18cc73.mockapi.io/favorites');
+      const itemsResponse = await axios
+        .get('https://629b626bcf163ceb8d18cc73.mockapi.io/items');
+
+        setIsLoading(false);
+        setCartItems(cartResponse.data);
+        setFavorites(favoritesResponse.data)
+        setItems(itemsResponse.data);
+    }
+
+    fetchData();  
+  }, [])
+
+  useEffect(() => {
+    cartOpened 
+      ? document.body.classList.add('lock')
+      : document.body.classList.remove('lock')
+  }, [cartOpened])
+  
+  
+  const onAddToCart = (item) => {
+    if(cartItems.find(obj => Number(obj.id) === Number(item.id))){
+      axios.delete(`https://629b626bcf163ceb8d18cc73.mockapi.io/cart/${item.id}`);
+      setCartItems(prev => prev.filter(obj => Number(obj.id) !== Number(item.id)));
+    } else {
+      axios.post('https://629b626bcf163ceb8d18cc73.mockapi.io/cart', item);
+      setCartItems(prev => [...prev, item]);
+    }
+    
+  }
+
+  const onRemoveItem = (id) => {
+    axios.delete(`https://629b626bcf163ceb8d18cc73.mockapi.io/cart/${id}`);
+    setCartItems(prev => prev.filter(item => item.id !== id)); 
+  }
+  
+  const onAddToFavorites = async (obj) => { 
+    try {
+      if(favorites.find(favObj => Number(favObj.id) === Number(obj.id))){
+        axios.delete(`https://629b626bcf163ceb8d18cc73.mockapi.io/favorites/${obj.id}`);
+        setFavorites(prev => prev.filter(item => item.id !== obj.id));
+      } else {
+        const {data} = axios.post('https://629b626bcf163ceb8d18cc73.mockapi.io/favorites', obj);
+        setFavorites(prev => [...prev, data]);
+      }
+    } catch (error) {
+      alert('Не удалось добавть в закладки(')
+    }
+    
+  }
+
+  const isItemAdded = (id) => {
+    return cartItems.some(obj => Number(obj.id) === Number(id))
+  }
+  
+
   return (
-    <div className="wrapper clear">
-      <header className='d-flex justify-between align-center p-40'>
-        <div className="d-flex align-center">
-          <img width={40} height={40} src='/img/logo.svg'/>
-          <div >
-            <h3 className='text-uppercase'>React Sneakers</h3>
-            <p className='opacity-5'>магазин лучших кросовок</p>
-          </div>
-        </div>
+    <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, 
+      onAddToFavorites, setCartOpened, setCartItems}}>
+      <div className="wrapper clear">
+        {
+          cartOpened && <Drawer 
+            closeCart={()=> setCartOpened(false)} 
+            items={cartItems}
+            onRemove={onRemoveItem}/>
+        }
+        <Header openCart={()=> setCartOpened(true)}/>      
         
-        <ul className="d-flex">
-          <li className="mr-30">
-            <img width={18} height={18} src='/img/cart.svg'/>
-            <span>120 руб.</span></li>
-          <li>
-          <img width={18} height={18} src='/img/user.svg'/>
-          </li>
-        </ul>
-      </header>
-      <div className="content p-40">
-        <h1 className='mb-40'>Все кроссовки</h1>
-        
-        <div className="sneakers d-flex justify-between">
-        <div className="card">
-          <img width={133} height={112} src="/img/sneakers/img1.jpg" alt="sneakers" />
-          <h5>Мужские Кроссовки Nike Blazer Mid Suede</h5>
-          <div className='d-flex justify-between align-center'>
-            <div className='d-flex flex-column'>
-              <span>Цена: </span>
-              <b>12 999 руб.</b>
-            </div>
-            <button className='button'>
-              <img width={11} height={11} src="/img/plus.svg" alt="plus" />
-            </button>
-          </div>
-        </div>
-        <div className="card">
-          <img width={133} height={112} src="/img/sneakers/img2.jpg" alt="sneakers" />
-          <h5>Мужские Кроссовки Nike Blazer Mid Suede</h5>
-          <div className='d-flex justify-between align-center'>
-            <div className='d-flex flex-column'>
-              <span>Цена: </span>
-              <b>12 999 руб.</b>
-            </div>
-            <button className='button'>
-              <img width={11} height={11} src="/img/plus.svg" alt="plus" />
-            </button>
-          </div>
-        </div>
-        <div className="card">
-          <img width={133} height={112} src="/img/sneakers/img3.jpg" alt="sneakers" />
-          <h5>Мужские Кроссовки Nike Blazer Mid Suede</h5>
-          <div className='d-flex justify-between align-center'>
-            <div className='d-flex flex-column'>
-              <span>Цена: </span>
-              <b>12 999 руб.</b>
-            </div>
-            <button className='button'>
-              <img width={11} height={11} src="/img/plus.svg" alt="plus" />
-            </button>
-          </div>
-        </div>
-        <div className="card">
-          <img width={133} height={112} src="/img/sneakers/img4.jpg" alt="sneakers" />
-          <h5>Мужские Кроссовки Nike Blazer Mid Suede</h5>
-          <div className='d-flex justify-between align-center'>
-            <div className='d-flex flex-column'>
-              <span>Цена: </span>
-              <b>12 999 руб.</b>
-            </div>
-            <button className='button'>
-              <img width={11} height={11} src="/img/plus.svg" alt="plus" />
-            </button>
-          </div>
-        </div>
-        </div>
-      
+        <Routes>
+          <Route path='/' element={ <Home 
+            items={items} 
+            cartItems={cartItems}
+            addToCart={onAddToCart} 
+            addToFav={onAddToFavorites} 
+            loading={isLoading}/> }
+          />          
+          <Route path='/favorites' element={<Favorites/>}
+          />
+        </Routes>
 
       </div>
-    </div>
+    </AppContext.Provider>
+    
   );
 }
 
