@@ -3,6 +3,9 @@ import s from "./Card.module.scss";
 import ContentLoader from "react-content-loader";
 import { AppContext } from '../../App';
 
+import { plusBtn, checkedBtn , liked, unlike} from "../../img/Images";
+
+
 
 const Card = (props) => {
   const {id,  name, price, img, onPlus, onFavorite, 
@@ -42,7 +45,7 @@ const Card = (props) => {
         { onFavorite &&
           <div className={s.favorite}
             onClick={handleFavorite}>
-            <img src={isFavorite ? "/img/heart_liked.svg":"/img/heart_unlike.svg"} alt="Unliked" />
+            <img src={isFavorite ? liked : unlike} alt="Unliked" />
           </div>}          
         <img width='100%' height={130} src={img} alt="sneakers" />
         <h5>{name}</h5>
@@ -53,7 +56,7 @@ const Card = (props) => {
           </div>
          { onPlus &&
           <img onClick={handlePlus} className={s.plus}
-            src={isItemAdded(id) ? "/img/btn-checked.svg" : "/img/btn-plus.svg" } alt="plus" 
+          src={isItemAdded(id) ? checkedBtn : plusBtn  } alt="plus" 
           />}
         </div>
       </>

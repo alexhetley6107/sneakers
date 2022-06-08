@@ -1,5 +1,6 @@
 import React,{ useState} from 'react'
 import Card from '../components/Card/Card';
+import {search, clearBtn} from '../img/Images';
 
 const Home = (props) => {
 
@@ -32,12 +33,12 @@ const renderItems = () => {
       </h1>
 
       <div className="search-block d-flex">
-        <img src="/img/search.svg" alt="Search" />
+        <img src={search} alt="Search" />
         <input type="text" placeholder='Поиск...'
           onChange={onChangeSearch} value={searchValue}/>
           { searchValue && <img 
             className='removeBtn cu-p'
-            src="/img/btn-remove.svg" alt="Clear" 
+            src={clearBtn} alt="Clear" 
             onClick={()=>setSearchValue('')}
           />}
       </div>

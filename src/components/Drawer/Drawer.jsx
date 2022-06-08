@@ -5,6 +5,7 @@ import Info from '../Info';
 import { useCart } from '../../hooks/useCart';
 
 import s from'./Drawer.module.scss'
+import {arrow, clearBtn } from '../../img/Images';
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms ));
 
@@ -28,7 +29,7 @@ const Drawer = (props) => {
       //костыль for mockapi
       for (let i = 0; i < cartItems.length; i++) {
         const item = cartItems[i];
-        await axios.delete('/cart/' + item.id);
+        await axios.delete('https://629b626bcf163ceb8d18cc73.mockapi.io/cart/' + item.id);
         await delay(1000);
       }
 
@@ -43,7 +44,7 @@ const Drawer = (props) => {
       <div className={s.drawer} >
         <h2 className='mb-40 d-flex justify-between'>Корзина
           <img className=' cu-p' onClick={closeCart}
-              src="/img/btn-remove.svg" alt="Remove" />
+              src={clearBtn} alt="Remove" />
         </h2>
 
         {
@@ -63,7 +64,7 @@ const Drawer = (props) => {
                     <b>{obj.price} руб.</b>
                   </div>            
                   <img className='removeBtn'
-                    src="/img/btn-remove.svg" alt="Remove"
+                    src={clearBtn} alt="Remove"
                     onClick={()=>onRemove(obj.id)} />
                 </div>
               )
@@ -85,7 +86,7 @@ const Drawer = (props) => {
             </ul>
             <button onClick={onClickOrder} disabled={isLoad}
               className='greenBtn'>Оформить заказ
-              <img src="/img/arrow.svg" alt="Arrow" />
+              <img src={arrow} alt="Arrow" />
             </button>
             </div>
           </>
@@ -96,7 +97,7 @@ const Drawer = (props) => {
               ? `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
               : 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'
             }
-            img= { isOrdered ? "/img/order_maked.jpg":"/img/cart_empty.jpg"}
+            img= { isOrdered ? "img/order_maked.jpg":"img/cart_empty.jpg"}
           />
           
         }

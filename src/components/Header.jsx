@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import { AppContext } from '../App';
 import { useCart } from '../hooks/useCart';
+import {logo, cart, fav, user} from '../img/Images';
 
 const Header = ({openCart}) => {
   
@@ -11,7 +12,7 @@ const Header = ({openCart}) => {
     <header className='d-flex justify-between align-center p-40'>
       <Link to='/'>
         <div className="d-flex align-center">
-          <img width={40} height={40} src='/img/logo.svg' alt='Logo'/>
+          <img width={40} height={40} src={logo} alt='Logo'/>
           <div >
             <h3 className='text-uppercase'>React Sneakers</h3>
             <p className='opacity-5'>магазин лучших кросовок</p>
@@ -23,18 +24,18 @@ const Header = ({openCart}) => {
         <li className="cu-p mr-10" 
           onClick={openCart}>
           <span className="mr-10">{totalPrice} руб.</span>  
-          <img width={18} height={18} src='/img/cart.svg' alt='Cart'/>
+          <img width={18} height={18} src={cart} alt='Cart'/>
         </li>
 
         <Link to='/favorites'>
           <li className="mr-10 cu-p">
-          <img width={18} height={18} src='/img/favorites.svg' alt='Favorite'/>
+          <img width={18} height={18} src={fav} alt='Favorite'/>
         </li>
         </Link>
         
         <Link to='/orders'>
           <li className=" cu-p">
-            <img width={18} height={18} src='/img/user.svg' alt='User'/>
+            <img width={18} height={18} src={user} alt='User'/>
           </li>
         </Link>
         
