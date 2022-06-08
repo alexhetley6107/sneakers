@@ -2,9 +2,7 @@ import React, { useContext } from 'react'
 import { AppContext } from '../App';
 import {arrow} from '../img/Images';
 
-const Info = ({img, title, desc}) => {
-
-const {setCartOpened} = useContext(AppContext);
+const Info = ({img, title, desc, method}) => {
 
   return (
     <div className="cartEmpty d-flex align-center justify-center flex-column flex">
@@ -15,7 +13,7 @@ const {setCartOpened} = useContext(AppContext);
       <p className="opacity-6">
         {desc}
       </p>
-      <button onClick={()=>setCartOpened(false)} className="greenBtn">
+      <button onClick={method} className="greenBtn">
         <img src={arrow} alt="Arrow" />
         Вернуться назад
       </button>

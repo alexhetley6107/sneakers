@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import axios from 'axios';
-
+import { AppContext } from '../../App';
 import Info from '../Info';
 import { useCart } from '../../hooks/useCart';
 
 import s from'./Drawer.module.scss'
-import {arrow, clearBtn } from '../../img/Images';
+import {arrow, clearBtn, emptyCart, ordered } from '../../img/Images';
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms ));
 
@@ -15,6 +15,7 @@ const Drawer = (props) => {
   const [isOrdered, setIsOrdered] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
   const [orderId, setOrderId] = useState(null);
+  const {setCartOpened} = useContext(AppContext);
 
   const onClickOrder = async () => { 
     try {
@@ -97,7 +98,8 @@ const Drawer = (props) => {
               ? `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
               : 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'
             }
-            img= { isOrdered ? "img/order_maked.jpg":"img/cart_empty.jpg"}
+            img= { isOrdered ?  ordered : emptyCart}
+            method={()=>setCartOpened(false)}
           />
           
         }

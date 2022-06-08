@@ -9,6 +9,10 @@ export {default as checkedBtn} from './../img/btn-checked.svg';
 export {default as liked} from './../img/heart_liked.svg';
 export {default as unlike} from './../img/heart_unlike.svg';
 export {default as arrow} from './../img/arrow.svg';
+export {default as emptyCart} from './../img/cart_empty.jpg';
+export {default as ordered} from './../img/order_maked.jpg';
+export {default as emptyFav} from './../img/favs_empty.jpg';
+export {default as emptyOrders} from './../img/orders_empty.jpg';
 
 
 
