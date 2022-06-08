@@ -12,13 +12,14 @@ const onChangeSearch = (e) => {
 
 
 const renderItems = () => {
-  const filteredItems = items.filter(item => item.name.toLowerCase().includes(searchValue))
+  const filteredItems = items.filter(item => 
+    item.name.toLowerCase().includes(searchValue.toLowerCase()))
   return ( loading ? [...Array(8)] : filteredItems )
     .map((item , index)=>
       <Card key={index}
         {...item} 
-        onPlus={()=>addToCart(item)}
-        onFavorite={()=>addToFav(item)}
+        onPlus={(item)=>addToCart(item)}
+        onFavorite={(item)=>addToFav(item)}
         loading={loading}
       />)
 }

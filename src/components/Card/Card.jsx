@@ -5,19 +5,20 @@ import { AppContext } from '../../App';
 
 
 const Card = (props) => {
-  const {id, name, price, img, onPlus, onFavorite, 
-    favorited = false, added = false, loading = false} = props;
+  const {id,  name, price, img, onPlus, onFavorite, 
+    favorited = false, loading = false} = props;
 
   const [isFavorite, setIsFavorite] = useState(favorited);
   const {isItemAdded} = useContext(AppContext);
+  const obj = {id, parentId: id, name, price, img}
 
   const handlePlus = () => {
-    onPlus({id, name, price, img});
+    onPlus(obj);
   }
 
   const handleFavorite = () => {
     setIsFavorite(!isFavorite);
-    onFavorite({id, name, price, img});
+    onFavorite(obj);
   }
 
   return (
@@ -38,10 +39,11 @@ const Card = (props) => {
         </ContentLoader>        
       :
       <>
-        <div className={s.favorite}
-          onClick={handleFavorite}>
-          <img src={isFavorite ? "/img/heart_liked.svg":"/img/heart_unlike.svg"} alt="Unliked" />
-        </div>          
+        { onFavorite &&
+          <div className={s.favorite}
+            onClick={handleFavorite}>
+            <img src={isFavorite ? "/img/heart_liked.svg":"/img/heart_unlike.svg"} alt="Unliked" />
+          </div>}          
         <img width='100%' height={130} src={img} alt="sneakers" />
         <h5>{name}</h5>
         <div className='d-flex justify-between align-center'>
@@ -49,9 +51,10 @@ const Card = (props) => {
             <span>Цена: </span>
             <b>{price} руб.</b>
           </div>
+         { onPlus &&
           <img onClick={handlePlus} className={s.plus}
             src={isItemAdded(id) ? "/img/btn-checked.svg" : "/img/btn-plus.svg" } alt="plus" 
-          />
+          />}
         </div>
       </>
       }

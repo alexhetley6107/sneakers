@@ -1,16 +1,16 @@
-import React, { useContext, useState } from 'react'
-import { AppContext } from '../App';
-import Info from './Info';
+import React, { useState } from 'react'
 import axios from 'axios';
+
+import Info from '../Info';
+import { useCart } from '../../hooks/useCart';
+
+import s from'./Drawer.module.scss'
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms ));
 
 const Drawer = (props) => {
-  const {items, closeCart, onRemove}= props;
-  
-  const {cartItems, setCartItems} = useContext(AppContext); 
-  const totalPrice = cartItems.reduce((sum, obj) => obj.price + sum, 0)
-
+  const {items, closeCart, onRemove, opened}= props;
+  const {cartItems, setCartItems, totalPrice} = useCart();
   const [isOrdered, setIsOrdered] = useState(false);
   const [isLoad, setIsLoad] = useState(false);
   const [orderId, setOrderId] = useState(null);
@@ -24,13 +24,13 @@ const Drawer = (props) => {
         });
       setOrderId(data.id)
       setIsOrdered(true);
+      setCartItems([]);
       //костыль for mockapi
       for (let i = 0; i < cartItems.length; i++) {
         const item = cartItems[i];
         await axios.delete('/cart/' + item.id);
         await delay(1000);
       }
-      setCartItems([]);
 
     } catch (error) {
       alert('Ошибка при создании заказа :(')
@@ -39,8 +39,8 @@ const Drawer = (props) => {
    }
 
   return (
-    <div  className="overlay" >
-      <div className="drawer"  >
+    <div  className={`${s.overlay} ${opened ? `${s.overlayVisible}`:''}` } >
+      <div className={s.drawer} >
         <h2 className='mb-40 d-flex justify-between'>Корзина
           <img className=' cu-p' onClick={closeCart}
               src="/img/btn-remove.svg" alt="Remove" />
@@ -50,7 +50,7 @@ const Drawer = (props) => {
           items.length 
           ?
           <>
-            <div className="items">          
+            <div className={s.items}>          
             {
               items.map(obj => 
                 <div key={obj.id}

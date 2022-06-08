@@ -8,7 +8,7 @@ const Favorites = () => {
 
   return (
     <div className="content p-40">
-      <h1>Мои закладки</h1>
+      <h1 className="mb-30" >Мои закладки</h1>
       <div className="favorites d-flex">
       {
         favorites.map((item , index)=>
