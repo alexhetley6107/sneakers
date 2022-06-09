@@ -7,6 +7,8 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites';
 import Orders from './pages/Orders';
+/* import sneakers from './img/Sneakers'; */
+import {img1, img2, img3, img4, img5, img6, img7, img8, img9, img10, img11, img12} from './img/Sneakers';
 
 export const AppContext = createContext({});
 
@@ -35,10 +37,13 @@ function App() {
           alert('Oшибка при запросе данных');
           console.error(error);
         }
-      }
-
+    } 
+    
+    
     fetchData();  
   }, [])
+
+  
 
   useEffect(() => {
     cartOpened 
@@ -46,8 +51,7 @@ function App() {
       : document.body.classList.remove('lock')
   }, [cartOpened])
   
-  
-  const onAddToCart = async (obj) => {;
+  const onAddToCart = async (obj) => {
     const findItem = cartItems.find(item => Number(item.parentId) === Number(obj.id));
     try {
       if(findItem){

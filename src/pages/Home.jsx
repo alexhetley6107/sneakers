@@ -1,6 +1,7 @@
 import React,{ useState} from 'react'
 import Card from '../components/Card/Card';
 import {search, clearBtn} from '../img/Images';
+import sneakers from '../img/Sneakers';
 
 const Home = (props) => {
 
@@ -19,6 +20,7 @@ const renderItems = () => {
     .map((item , index)=>
       <Card key={index}
         {...item} 
+        img={sneakers[index]}
         onPlus={(item)=>addToCart(item)}
         onFavorite={(item)=>addToFav(item)}
         loading={loading}

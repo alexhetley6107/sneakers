@@ -1,18 +1,15 @@
-export {default as logo} from './../img/logo.svg';
-export {default as cart} from './../img/cart.svg';
-export {default as fav} from './../img/favorites.svg';
-export {default as user} from './../img/user.svg';
-export {default as search} from './../img/search.svg';
-export {default as clearBtn} from './../img/btn-remove.svg';
-export {default as plusBtn} from './../img/btn-plus.svg';
-export {default as checkedBtn} from './../img/btn-checked.svg';
-export {default as liked} from './../img/heart_liked.svg';
-export {default as unlike} from './../img/heart_unlike.svg';
-export {default as arrow} from './../img/arrow.svg';
-export {default as emptyCart} from './../img/cart_empty.jpg';
-export {default as ordered} from './../img/order_maked.jpg';
-export {default as emptyFav} from './../img/favs_empty.jpg';
-export {default as emptyOrders} from './../img/orders_empty.jpg';
-
-
-
+export {default as logo} from './logo.svg';
+export {default as cart} from './cart.svg';
+export {default as fav} from './favorites.svg';
+export {default as user} from './user.svg';
+export {default as search} from './search.svg';
+export {default as clearBtn} from './btn-remove.svg';
+export {default as plusBtn} from './btn-plus.svg';
+export {default as checkedBtn} from './btn-checked.svg';
+export {default as liked} from './heart_liked.svg';
+export {default as unlike} from './heart_unlike.svg';
+export {default as arrow} from './arrow.svg';
+export {default as emptyCart} from './cart_empty.jpg';
+export {default as ordered} from './order_maked.jpg';
+export {default as emptyFav} from './favs_empty.jpg';
+export {default as emptyOrders} from './orders_empty.jpg';
