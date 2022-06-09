@@ -10,8 +10,8 @@ const Header = ({openCart}) => {
 
   return (
     <header className='d-flex justify-between align-center p-40'>
-      <Link to='/'>
-        <div className="d-flex align-center">
+      <Link to='sneakers'>
+        <div className="d-flex align-center ">
           <img width={40} height={40} src={logo} alt='Logo'/>
           <div >
             <h3 className='text-uppercase'>React Sneakers</h3>

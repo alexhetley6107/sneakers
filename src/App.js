@@ -41,9 +41,7 @@ function App() {
     
     
     fetchData();  
-  }, [])
-
-  
+  }, []) 
 
   useEffect(() => {
     cartOpened 
@@ -113,6 +111,7 @@ function App() {
   return (
     <AppContext.Provider value={{items, cartItems, favorites, isItemAdded, onAddToCart,
       onAddToFavorites, setCartOpened, setCartItems}}>
+
       <div className="wrapper clear">
 
         <Drawer opened={cartOpened}
@@ -124,7 +123,7 @@ function App() {
         <Header openCart={()=> setCartOpened(true)}/>      
         
         <Routes>
-          <Route path='/' element={ <Home 
+          <Route path='sneakers' element={ <Home 
             items={items} 
             cartItems={cartItems}
             addToCart={onAddToCart} 
